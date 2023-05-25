@@ -1,0 +1,27 @@
+# Enable the RewriteEngine
+RewriteEngine On
+
+# Redirect all requests to index.php
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^(.*)$ /index.php [L]
+
+# Disable directory listing
+Options -Indexes
+
+# Protect the .htaccess file itself
+<Files ".htaccess">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Protect the api file itself
+<Files "si_secret_api.json">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+# Allow only from a specific IP address
+Order Deny,Allow
+Deny from all
+Allow from 192.168.0.100
